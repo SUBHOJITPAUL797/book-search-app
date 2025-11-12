@@ -213,24 +213,6 @@ export const HomePage: React.FC = () => {
             )}
           </motion.div>
         )}
-              </motion.div>
-            )}
-
-            {/* No Results */}
-            {searchQuery.length > 0 && !isLoading && searchResults.length === 0 && !error && (
-              <div className="text-center py-16 bg-white rounded-2xl shadow-sm border border-secondary-200">
-                <div className="w-20 h-20 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Search className="h-10 w-10 text-secondary-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-secondary-900 mb-2">No books found</h3>
-                <p className="text-secondary-600 mb-6 max-w-md mx-auto">
-                  Try adjusting your search terms or filters to find what you're looking for.
-                </p>
-                <Button variant="outline" onClick={() => useBookStore.getState().setSearchQuery('')}>
-                  Clear Search
-                </Button>
-              </div>
-            )}
           </div>
         </div>
       </main>
