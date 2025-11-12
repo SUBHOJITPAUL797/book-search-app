@@ -21,17 +21,17 @@ export const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-16 z-10">
+    <div className="bg-white border-b border-secondary-200 sticky top-16 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4 h-20">
           <form onSubmit={handleSubmit} className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400 h-5 w-5" />
             <Input
               type="text"
-              placeholder="Search by title, author, or genre..."
+              placeholder="Search by title, author, or ISBN..."
               value={localQuery}
               onChange={handleInputChange}
-              className="pl-12 pr-4 py-3 h-14 text-base w-full bg-gray-100 border-transparent focus:bg-white focus:border-primary-500 rounded-xl"
+              className="pl-12 pr-4 py-3 h-12 text-base w-full bg-white border-secondary-300 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 rounded-lg shadow-sm"
             />
           </form>
           
@@ -40,28 +40,28 @@ export const SearchBar: React.FC = () => {
               type="button"
               variant={isFiltersOpen ? "default" : "outline"}
               onClick={toggleFilters}
-              className="flex items-center gap-2 h-14 w-14 sm:w-auto sm:px-6 rounded-xl"
+              className="flex items-center gap-2 h-12 w-12 sm:w-auto sm:px-6 rounded-lg"
             >
               <Filter className="h-5 w-5" />
               <span className="hidden sm:inline">Filters</span>
             </Button>
             
-            <div className="flex items-center bg-gray-100 rounded-xl p-1 h-14">
+            <div className="flex items-center bg-secondary-100 border border-secondary-200 rounded-lg p-1 h-12">
               <Button
                 type="button"
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                variant={viewMode === 'grid' ? 'primary' : 'ghost'}
                 size="icon"
                 onClick={() => setViewMode('grid')}
-                className="h-12 w-12 rounded-lg"
+                className="h-10 w-10 rounded-md"
               >
                 <Grid className="h-5 w-5" />
               </Button>
               <Button
                 type="button"
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
+                variant={viewMode === 'list' ? 'primary' : 'ghost'}
                 size="icon"
                 onClick={() => setViewMode('list')}
-                className="h-12 w-12 rounded-lg"
+                className="h-10 w-10 rounded-md"
               >
                 <List className="h-5 w-5" />
               </Button>

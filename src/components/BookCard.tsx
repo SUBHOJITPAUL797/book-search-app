@@ -67,33 +67,35 @@ export const BookCard: React.FC<BookCardProps> = ({ book, viewMode = 'grid' }) =
         initial="hidden"
         animate="visible"
         transition={{ duration: 0.3 }}
+        className="group"
       >
-        <Card className="mb-4 hover:shadow-xl transition-shadow duration-300 rounded-xl border-secondary-200">
+        <Card className="mb-4 hover:shadow-lg transition-all duration-300 rounded-xl border border-secondary-200 hover:border-primary-300">
           <CardContent className="p-4">
             <div className="flex gap-6">
-              <img
-                src={book.coverUrl || `https://picsum.photos/seed/${book.id}/100/150`}
-                alt={book.title}
-                className="w-24 h-36 object-cover rounded-lg shadow-md"
-              />
-              <div className="flex-1">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold text-lg text-secondary-900 mb-1">{book.title}</h3>
-                    <p className="text-secondary-600 mb-2">by {book.author}</p>
-                    <p className="text-sm text-secondary-500 line-clamp-2">{book.description}</p>
+              <div className="flex-shrink-0">
+                <img
+                  src={book.coverUrl || `https://picsum.photos/seed/${book.id}/100/150`}
+                  alt={book.title}
+                  className="w-24 h-36 object-cover rounded-lg shadow-sm"
+                />
+              </div>
+              <div className="flex-1 flex flex-col">
+                <div className="flex-1">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-bold text-lg text-secondary-900 mb-1 group-hover:text-primary-600 transition-colors">{book.title}</h3>
+                      <p className="text-secondary-600 mb-3">by {book.author}</p>
+                    </div>
+                    <div className="text-right flex-shrink-0 ml-4">
+                      {book.rating && (
+                        <div className="flex items-center gap-1.5 mb-2">
+                          <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                          <span className="text-sm font-bold text-secondary-800">{book.rating}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="text-right flex-shrink-0 ml-4">
-                    {book.rating && (
-                      <div className="flex items-center gap-1.5 mb-2">
-                        <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                        <span className="text-sm font-bold text-secondary-800">{book.rating}</span>
-                      </div>
-                    )}
-                    {book.fileSize && (
-                      <p className="text-sm text-secondary-500">{formatFileSize(book.fileSize)}</p>
-                    )}
-                  </div>
+                  <p className="text-sm text-secondary-500 line-clamp-2">{book.description}</p>
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex items-center gap-4 text-sm text-secondary-500">
@@ -107,6 +109,12 @@ export const BookCard: React.FC<BookCardProps> = ({ book, viewMode = 'grid' }) =
                       <span className="flex items-center gap-1.5">
                         <Calendar className="h-4 w-4" />
                         {book.publishYear}
+                      </span>
+                    )}
+                     {book.fileSize && (
+                      <span className="flex items-center gap-1.5">
+                        <Download className="h-4 w-4" />
+                        {formatFileSize(book.fileSize)}
                       </span>
                     )}
                   </div>
@@ -141,21 +149,48 @@ export const BookCard: React.FC<BookCardProps> = ({ book, viewMode = 'grid' }) =
       initial="hidden"
       animate="visible"
       transition={{ duration: 0.3 }}
-      whileHover={{ y: -6 }}
+      whileHover={{ y: -5 }}
       className="group"
     >
-      <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 rounded-xl border-secondary-200">
+      <Card className="overflow-hidden transition-all duration-300 rounded-xl border border-secondary-200 hover:shadow-xl hover:border-primary-300">
         <div className="relative">
           <img
             src={book.coverUrl || `https://picsum.photos/seed/${book.id}/200/300`}
             alt={book.title}
-            className="w-full h-64 object-cover"
+            className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
           />
-          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Button variant="secondary" size="icon" className="rounded-full h-10 w-10 bg-white/80 backdrop-blur-sm">
-              <Heart className="h-5 w-5 text-red-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          
+          <div className="absolute top-3 right-3">
+            <Button variant="secondary" size="icon" className="rounded-full h-9 w-9 bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <Heart className="h-4 w-4 text-red-500" />
             </Button>
           </div>
+
+          <div className="absolute bottom-0 left-0 p-4 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex gap-2">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="flex-1 bg-white/90"
+                onClick={() => window.open(book.downloadUrl, '_blank')}
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                Preview
+              </Button>
+              <Button
+                size="sm"
+                className="flex-1"
+                onClick={handleDownload}
+                disabled={isDownloading || isDownloaded}
+                loading={isDownloading}
+              >
+                {isDownloaded ? <CheckCircle className="h-4 w-4 mr-2" /> : <Download className="h-4 w-4 mr-2" />}
+                {isDownloading ? `${downloadProgress}%` : isDownloaded ? 'Downloaded' : 'Download'}
+              </Button>
+            </div>
+          </div>
+
           {book.rating && (
             <div className="absolute top-3 left-3 bg-black/60 text-white px-3 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-sm">
               <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
@@ -165,43 +200,21 @@ export const BookCard: React.FC<BookCardProps> = ({ book, viewMode = 'grid' }) =
         </div>
         
         <CardContent className="p-4">
-          <h3 className="font-bold text-lg text-secondary-900 mb-1 line-clamp-1 group-hover:text-primary-600 transition-colors">
+          <h3 className="font-bold text-base text-secondary-900 mb-1 line-clamp-1 group-hover:text-primary-600 transition-colors">
             {book.title}
           </h3>
           <p className="text-secondary-600 text-sm mb-3">by {book.author}</p>
           
-          <div className="flex items-center justify-between text-sm text-secondary-500 mb-4">
+          <div className="flex items-center justify-between text-xs text-secondary-500">
             {book.format && (
               <span className="flex items-center gap-1.5 bg-secondary-100 px-2 py-1 rounded-md">
-                <FileText className="h-4 w-4" />
+                <FileText className="h-3 w-3" />
                 {book.format}
               </span>
             )}
             {book.fileSize && (
               <span className="font-medium">{formatFileSize(book.fileSize)}</span>
             )}
-          </div>
-          
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1"
-              onClick={() => window.open(book.downloadUrl, '_blank')}
-            >
-              <Eye className="h-4 w-4 mr-2" />
-              Preview
-            </Button>
-            <Button
-              size="sm"
-              className="flex-1"
-              onClick={handleDownload}
-              disabled={isDownloading || isDownloaded}
-              loading={isDownloading}
-            >
-              {isDownloaded ? <CheckCircle className="h-4 w-4 mr-2" /> : <Download className="h-4 w-4 mr-2" />}
-              {isDownloading ? `${downloadProgress}%` : isDownloaded ? 'Downloaded' : 'Download'}
-            </Button>
           </div>
         </CardContent>
       </Card>

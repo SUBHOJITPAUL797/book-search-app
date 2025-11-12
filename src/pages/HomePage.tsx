@@ -49,9 +49,9 @@ export const HomePage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-secondary-50">
+    <div className="min-h-screen bg-secondary-100 text-secondary-800">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-20">
+      <header className="bg-white shadow-sm sticky top-0 z-20 border-b border-secondary-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
@@ -89,39 +89,40 @@ export const HomePage: React.FC = () => {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="text-center py-16 bg-white rounded-2xl shadow-sm border border-secondary-200"
+                className="text-center py-20 px-6 bg-gradient-to-br from-white to-secondary-50 rounded-2xl shadow-sm border border-secondary-200"
               >
                 <motion.div variants={itemVariants}>
-                  <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Search className="h-10 w-10 text-primary-600" />
+                  <div className="w-24 h-24 bg-gradient-to-br from-primary-50 to-primary-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
+                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
+                      <Search className="h-8 w-8 text-primary-600" />
+                    </div>
                   </div>
                 </motion.div>
                 <motion.h2 
                   variants={itemVariants}
-                  className="text-4xl font-extrabold text-secondary-900 mb-4 tracking-tight"
+                  className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500 mb-4 tracking-tight"
                 >
                   Find Your Next Great Read
                 </motion.h2>
                 <motion.p 
                   variants={itemVariants}
-                  className="text-lg text-secondary-600 mb-8 max-w-2xl mx-auto"
+                  className="text-xl text-secondary-600 mb-10 max-w-3xl mx-auto"
                 >
-                  Search our extensive collection of books. Filter by author, genre, or publication year. 
-                  Download your favorites in multiple formats.
+                  Instantly search our extensive collection of books. Filter by author, genre, or publication year and download your favorites in multiple formats.
                 </motion.p>
                 <motion.div 
                   variants={itemVariants}
-                  className="flex flex-wrap justify-center gap-6"
+                  className="flex flex-wrap justify-center gap-4"
                 >
-                  <div className="flex items-center gap-3 text-secondary-700">
+                  <div className="flex items-center gap-3 text-secondary-700 bg-secondary-100 border border-secondary-200 rounded-full px-4 py-2 text-sm">
                     <Download className="h-5 w-5 text-primary-500" />
                     <span>Easy Downloads</span>
                   </div>
-                  <div className="flex items-center gap-3 text-secondary-700">
+                  <div className="flex items-center gap-3 text-secondary-700 bg-secondary-100 border border-secondary-200 rounded-full px-4 py-2 text-sm">
                     <Star className="h-5 w-5 text-primary-500" />
                     <span>Curated Collection</span>
                   </div>
-                  <div className="flex items-center gap-3 text-secondary-700">
+                  <div className="flex items-center gap-3 text-secondary-700 bg-secondary-100 border border-secondary-200 rounded-full px-4 py-2 text-sm">
                     <BookOpen className="h-5 w-5 text-primary-500" />
                     <span>Author Organized</span>
                   </div>
