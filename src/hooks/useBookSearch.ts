@@ -16,7 +16,7 @@ export const useBookSearch = () => {
   
   const debouncedQuery = useDebounce(searchQuery, 500);
   
-  const { isLoading, error, refetch, data } = useQuery({
+  const { isLoading, error, refetch } = useQuery({
     queryKey: ['books', debouncedQuery, currentPage],
     queryFn: async () => {
       try {
